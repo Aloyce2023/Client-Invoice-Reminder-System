@@ -73,12 +73,13 @@ if(isset($_SESSION['fullname']))
         <tbody class="divide-y divide-gray-500  border-gray-500 "   >
 
         <?php
-        //pull data from database and display it to the website
+        //pull customers from database and display it to the Admin pages
         $sql = "SELECT * FROM customers;";
         $result = mysqli_query($conn , $sql);
 
         if($result)
           {
+            $count=1;
             while($row = mysqli_fetch_assoc($result))
               {
                 $id = $row['id'];
@@ -89,7 +90,7 @@ if(isset($_SESSION['fullname']))
                 $physicaladdress=$row['physicaladdress'];
 
                  echo'<tr class="bg-gray-50 border-b border-gray-200">
-                 <td >'.$id.'</td>
+                 <td >'.$count++.'</td>
                  <td >'.$fullname.'</td>
                   <td >'.$phone_no.'</td>
                    <td >'.$email.'</td>
