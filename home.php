@@ -15,7 +15,7 @@
     </head>
     <body class="bg-white">
         <!--Navigation Bar-->
-        <div class="  grid  mt-0 sm:grid-cols-3 grid-cols-3 h-20 bg-white shadow-xl items-center w-full  sm:gap-60 gap-5 ">
+        <div class="  grid fixed top-0 mt-0 sm:grid-cols-3 grid-cols-3 h-20 bg-white shadow-xl items-center w-full  sm:gap-60 gap-5 ">
 
            <div class="  w-11 h-11 bg-blue-600 rounded-xl m-5
                             flex items-center justify-center shadow-lg">
@@ -44,18 +44,18 @@
 
         <!--Features-->
 
-        <div class="flex items-center flex-col gap-2 mx-10 mt-5">
-            <h2 class="text-center font-bold text-md text-blue-300">Powerful Features</h2>
-            <p class="text-3xl font-bold">Everything You Need to Manage Invoices</p>
+        <div class="flex items-center flex-col gap-2 mx-10 mt-20">
+            <h2 class="text-center font-bold m-10 text-md text-blue-300">Powerful Features</h2>
+            <p class="text-3xl font-bold mt-0">Everything You Need to Manage Invoices</p>
             <p class="mt-4 text-gray-600">
                 Keep your clients, invoices and payment information
                 organized in one convenient place.
             </p>
         </div>
 
-        <div class="grid m-10 sm:grid-cols-4 grid-cols-1 h-80 bg-white items-center w-full gap-4">
+        <div class="grid ml-10 sm:grid-cols-4 grid-cols-1 h-90 bg-white items-center w-full gap-4">
             <!--Div 1-->
-            <div class="flex items-center flex-col gap-3 w-60 h-80 rounded-lg p-7  border border-gray-100 px-10 text-center  hover:shadow-xl ">
+            <div class="flex items-center  flex-col gap-3 w-70 h-60 rounded-lg p-7  border border-gray-100 px-10 text-center  hover:shadow-xl ">
                 <div class="w-14 h-14 bg-orange-100 rounded-xl
                             flex items-center justify-center">
 
@@ -76,7 +76,7 @@
             <!--Div 2-->
 
 
-            <div class="flex items-center w-60 h-80 rounded-lg flex-col gap-3 p-7  border border-gray-100 px-10 text-center  hover:shadow-xl ">
+            <div class="flex items-center  w-70 h-60 md:h-90 rounded-lg flex-col gap-3 p-7  border border-gray-100 px-10 text-center  hover:shadow-xl ">
                 <div class="w-14 h-14 bg-green-100 rounded-xl
                             flex items-center justify-center">
 
@@ -96,7 +96,7 @@
             <!--Div 3-->
 
 
-            <div class="flex items-center w-60 h-80 rounded-lg  flex-col gap-3 p-7  border border-gray-100 px-10 text-center  hover:shadow-xl ">
+            <div class="flex items-center  w-70 h-60 md:h-90 rounded-lg  flex-col gap-3 p-7  border border-gray-100 px-10 text-center  hover:shadow-xl ">
                  <div class="w-14 h-14 bg-green-100 rounded-xl
                             flex items-center justify-center">
 
@@ -113,7 +113,7 @@
                 </p>
             </div>
             <!--Div 4-->
-            <div class="flex items-center w-60 h-80 rounded-lg  gap-3 p-7 flex-col gap-3 border border-gray-100 px-10 text-center  hover:shadow-xl ">
+            <div class="flex items-center w-70 h-60 md:h-90 rounded-lg  gap-3 p-7 flex-col gap-3 border border-gray-100 px-10 text-center  hover:shadow-xl ">
 
                  <div class="w-14 h-14 bg-blue-100 rounded-xl
                             flex items-center justify-center">
