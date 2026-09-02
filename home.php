@@ -226,17 +226,23 @@
                 </p>
             </div>
 
+        </div>
+
 
            <!--Footer Section-->
 
-           <div class="flex items-center flex-col gap-4 bg-black w-full ">
 
 
-        <div class="grid ml-10 sm:grid-cols-4 grid-cols-1 h-90   items-center w-full gap-8">
+
+
+
+
+       <div class="flex flex-col items-center gap-5 bg-black">       
+        <div class="grid m-5 sm:grid-cols-3 grid-cols-1  justify-between items-center w-full gap-10">
 
         <!--left contents-->
             <div class="flex items-center  flex-col gap-3 w-70 h-100 rounded-lg p-7  px-10 text-center   ">
-                 <div class="flex items-center   h-11 sm:w-60 w-40"> 
+                 <div class="flex items-center h-11 sm:w-60 w-40"> 
 
                  <div class="  w-11 h-11 bg-blue-600 rounded-xl hover:bg-black 
                             flex items-center justify-center m-2 shadow-lg">
@@ -322,7 +328,13 @@
 
         </div>
 
-           </div>
+       </div>
+
+
+       
+           
+
+           
 
     </body>
 </html>
