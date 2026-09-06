@@ -1,340 +1,188 @@
+<?php
+session_start();
+$message = "";
+$error = "";
+$hashed ="";
+
+
+          // Form Validation
+
+if(isset($_POST["submit"]))
+  {
+    $fullname = trim($_POST['fullname']);
+    $phonenumber =trim($_POST['phonenumber']);
+    $email = strtolower($_POST['email']);
+    $password = trim($_POST['password']);
+    $physicaladdress =trim($_POST['physicaladdress']);
+    $role = trim($_POST['role']);
+
+
+    if(empty($_POST['fullname'])||empty($_POST['phonenumber'])||empty($_POST['email'])||empty($_POST['password'])||empty($_POST['physicaladdress']))
+      {
+        $error ="Please fill all credential!";
+      }
+      else{
+        include("database.php");
+
+      // Data sents to the database 
+
+
+      $user = filter_var($_POST['fullname'],FILTER_SANITIZE_SPECIAL_CHARS);
+      $sanitize_email = filter_var($_POST['email'],FILTER_SANITIZE_EMAIL);
+      $hashed = password_hash($password , PASSWORD_BCRYPT);
+      $sql="INSERT INTO customers(fullname ,phonenumber,email,password,physicaladdress,role) VALUES ('$user' , '$phonenumber','$sanitize_email','$hashed','$physicaladdress','$role');";
+       $result =mysqli_query($conn,$sql);
+       if($result)
+        {
+          $message="Hi you data recorded successfull!";
+        }
+        else
+          {
+            $error="Query Failed";
+          }
+
+
+
+      }
+
+  }
+
+
+
+
+
+?>
 
 <!DOCTYPE html>
-<html>
-    <head>
-          <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Client Invoice Reminder</title>
-
-    <!-- Tailwind links -->
-    <script src="https://cdn.tailwindcss.com"></script>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    </head>
-    <body class="bg-white">
-        <!--Navigation Bar-->
-        <div class="  grid fixed top-0 mt-0 right-0 left-0 sm:grid-cols-3 grid-cols-3 h-20 bg-white shadow-xl items-center w-full  sm:gap-60 gap-5 ">
+</head>
+<body class="bg-green-500 min-h-screen flex items-center justify-center">
 
-        <div class="flex items-center   h-11 sm:w-60 w-40"> 
-
-           <div class="  w-11 h-11 bg-blue-600 rounded-xl m-5 hover:bg-black animate-pulse
-                            flex items-center justify-center  shadow-lg">
-
-                    <i class="fa-solid fa-file-invoice-dollar
-                              text-white text-lg"></i>          
-                </div>
-                <h2 class="font-bold text-xl text-black">Client Invoice</h2>
-        </div>
-
-
-                <!--href links-->
-
-
-            <div class="hidden lg:flex items-center gap-8">
-                <ul class="hover:text-blue-500  font-bold"><a href="#">Home</a></ul>
-                <ul class="hover:text-blue-500 font-bold"><a href="#">How it works</a></ul>
-                <ul class="hover:text-blue-500 font-bold"><a href="#">About</a></ul>
-                <ul class="hover:text-blue-500 font-bold"><a href="#">Contacts</a></ul>
-            </div>
-            <div class="flex gap-5">
-                <a href="login.php" class="hover:rounded-lg py-2 px-3  hover:bg-black hover:text-white font-bold text">login</a>
-                <a  href="index.php" class="hover:rounded-lg py-2 px-3 hover:bg-blue-500 hover:text-white font-bold">Register</a>
-            </div>
-        
-        </div>
-        
-
-        <!--Features-->
-
-        <div class="flex items-center flex-col gap-2 mx-10 mt-20">
-            <h2 class="text-center font-bold m-10 text-md text-blue-600">POWERFULL FEATURES</h2>
-            <p class="font-bold text-2xl mt-0 ml-5 sm:text-5xl">Everything You Need to Manage Invoices</p>
-            <p class="mt-4 text-gray-600 ml-5">
-                Keep your clients, invoices and payment information
-                organized in one convenient place.
-            </p>
-        </div>
-
-        <div class="grid ml-10 sm:grid-cols-4 grid-cols-1 h-90 bg-white  items-center w-full gap-4">
-            <!--Div 1-->
-            <div class="flex items-center m-3 flex-col gap-3 w-70 h-100 rounded-lg p-7  border border-gray-100 px-10 text-center  hover:shadow-xl ">
-                <div class="w-14 h-14 bg-orange-100 rounded-xl
-                            flex items-center justify-center">
-
-                    <i class="fa-solid fa-bell text-orange-600 text-xl"></i>
-
-                </div>
-                <h3 class="mt-5 text-xl font-bold text-gray-900">
-                   Client Management
-                </h3>
-
-                <p class="mt-3 text-gray-600 leading-relaxed">
-                    Store and manage your client information in an
-                    organized and accessible way.
-                </p>
-            </div>
-
-
-            <!--Div 2-->
-
-
-           <div class="flex items-center m-3 flex-col gap-3 w-70 h-100 rounded-lg p-7  border border-gray-100 px-10 text-center  hover:shadow-xl">
-
-                <div class="w-14 h-14 bg-purple-100 rounded-xl
-                            flex items-center justify-center">
-
-                    <i class="fa-solid fa-file-invoice-dollar
-                              text-purple-600 text-xl"></i>
-
-                </div>
-
-                <h3 class="mt-5 text-xl font-bold text-gray-900">
-                  Invoice Management
-                </h3>
-
-                <p class="mt-3 text-gray-600 leading-relaxed">
-                  Create, organize and monitor invoices without
-                    complicated spreadsheets.
-                </p>
-
-            </div>
-
-            <!--Div 3-->
-
-
-            <div class="flex items-center  w-70 h-100 rounded-lg  flex-col gap-3 p-7  border border-gray-100 px-10 text-center  hover:shadow-xl ">
-                 <div class="w-14 h-14 bg-green-100 rounded-xl
-                            flex items-center justify-center">
-
-                    <i class="fa-solid fa-chart-pie text-green-600 text-xl"></i>
-
-                </div>
-
-                <h3 class="mt-5 text-xl font-bold text-gray-900">
-                   Invoice Reminders
-                </h3>
-
-                <p class="mt-3 text-gray-600 leading-relaxed">
-                    Stay informed about upcoming payment deadlines
-                    and overdue invoices.
-                </p>
-            </div>
-            <!--Div 4-->
-            <div class="flex items-center w-70 h-100 rounded-lg  gap-3 p-7 flex-col  border border-gray-100 px-10 text-center  hover:shadow-xl ">
-
-                 <div class="w-14 h-14 bg-blue-100 rounded-xl
-                            flex items-center justify-center">
-
-                    <i class="fa-solid fa-users text-blue-600 text-xl"></i>
-
-                </div>
-
-                <h3 class="mt-5 text-xl font-bold text-gray-900">
-                  Payment Tracking
-                </h3>
-
-                <p class="mt-3 text-gray-600 leading-relaxed">
-                    Easily identify paid, pending and overdue invoices.
-                </p>
-
-
-
-            </div>
-        </div>
-
-        <!--How it work system-->
-
-        <div class="flext items-center justify-center flex-col gap-4 bg-gray-100 w-full">
-
-        <div class="flex items-center justify-center mt-4">
-            <h2 class="  justify-center font-bold text-4xl m-5">How it works</h2>
-        </div>
+  <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md">
+    <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Register Account</h2>
     
-        <div class="grid  sm:grid-cols-4 grid-cols-1 h-90  items-center w-full gap-4">
-            <!--step 1-->
-
-             <!--Div 1-->
-            <div class="flex items-center m-3 flex-col gap-3 w-70 h-100 rounded-lg p-7  border border-gray-100 px-10 text-center   ">
-                <div class="w-14 h-14 bg-blue-400 rounded-full
-                            flex items-center justify-center">
-
-                    <h2 class="text-white font-bold text-xl">1</h2>
-
-                </div>
-                <h3 class="mt-5 text-xl font-bold text-gray-900">
-                      Client Registration
-                </h3>
-
-                <p class="mt-3 text-gray-600 leading-relaxed">
-                     Register client and keep their information
-                </p>
-            </div>
-            <!--Div 2-->
-
-
-            <div class="flex items-center m-3 flex-col gap-3 w-70 h-100 rounded-lg p-7  border border-gray-100 px-10 text-center   ">
-                <div class="w-14 h-14 bg-blue-400 rounded-full
-                            flex items-center justify-center">
-
-                    <h2 class="text-white font-bold text-xl">2</h2>
-
-                </div>
-                <h3 class="mt-5 text-xl font-bold text-gray-900">
-                    Manage Clients
-                </h3>
-
-                <p class="mt-3 text-gray-600 leading-relaxed">
-                     Manages the clients information
-                </p>
-            </div>
-
-            <!--Div 3-->
-
-
-            <div class="flex items-center m-3 flex-col gap-3 w-70 h-100 rounded-lg p-7  border border-gray-100 px-10 text-center   ">
-                <div class="w-14 h-14 bg-blue-400 rounded-full
-                            flex items-center justify-center">
-
-                    <h2 class="text-white font-bold text-xl">3</h2>
-
-                </div>
-                <h3 class="mt-5 text-xl font-bold text-gray-900">
-                      Set Invoice
-                </h3>
-
-                <p class="mt-3 text-gray-600 leading-relaxed">
-                    Record the invoice amount , due date and clients detail
-                </p>
-            </div>
-
-
-            <!--Div 4-->
-
-            <div class="flex items-center m-3 flex-col gap-3 w-70 h-100 rounded-lg p-7  border border-gray-100 px-10 text-center   ">
-                <div class="w-14 h-14 bg-blue-400 rounded-full
-                            flex items-center justify-center">
-
-                    <h2 class="text-white font-bold text-xl">4</h2>
-
-                </div>
-                <h3 class="mt-5 text-xl font-bold text-gray-900">
-                    Set Reminder
-                </h3>
-
-                <p class="mt-3 text-gray-600 leading-relaxed">
-                     Keeps tracks of importants payments deadlines.
-                </p>
-            </div>
-
-        </div>
-
-
-           <!--Footer Section-->
-
-
-
-
-
-
-
-       <div class="flex flex-col items-center gap-5 bg-black">       
-        <div class="grid m-5 sm:grid-cols-3 grid-cols-1  justify-between items-center w-full gap-10">
-
-        <!--left contents-->
-            <div class="flex items-center  flex-col gap-3 w-70 h-100 rounded-lg p-7  px-10 text-center   ">
-                 <div class="flex items-center h-11 sm:w-60 w-40"> 
-
-                 <div class="  w-11 h-11 bg-blue-600 rounded-xl hover:bg-black 
-                            flex items-center justify-center m-2 shadow-lg">
-
-                    <i class="fa-solid fa-file-invoice-dollar
-                              text-white text-lg"></i>          
-                </div>
-                <h2 class="font-bold text-xl text-white">Client Invoice</h2>
-                </div>
-        
-                <p class="mt-3 text-gray-600 leading-relaxed">
-                    A simple platform for managing client invoices,
-                    tracking payments and staying on top of reminders.
-
-                </p>
-                  
-            </div>
-
-            <!--Center Section-->
-
-            <div class="flex items-center m-3 flex-col gap-3 w-70 h-100 rounded-lg p-7   px-10 text-center   ">
-                 <div>
-
-                <h3 class="text-white font-bold mb-5">
-                    Quick Links
-                </h3>
-
-                <div class="space-y-3">
-
-                    <a href="#home" class="block hover:text-white text-gray-400 transition">
-                        Home
-                    </a>
-
-                    <a href="#features" class="block hover:text-white text-gray-400 transition">
-                        Features
-                    </a>
-
-                    <a href="#how-it-works" class="block hover:text-white text-gray-400 transition">
-                        How It Works
-                    </a>            
-
-                </div>
-
-            </div>
-            </div>
-
-
-            <!--Right section-->
-            <div class="flex items-center m-3 flex-col gap-3 w-70 h-100 rounded-lg p-7 px-10 text-center   ">
-                <div>
-
-                <h3 class="text-white font-bold mb-5">
-                    Account
-                </h3>
-
-                <div class="space-y-3">
-
-                    <a href="login.php"
-                       class="block hover:text-white text-gray-400 transition">
-                        Login
-                    </a>
-
-                    <a href="index.php"
-                       class="block hover:text-white text-gray-400 transition">
-                        Register
-                    </a>
-
-                </div>  
-                </div>
-
-           </div>
+    <form class="space-y-6" method = "post">
       
+      <!-- Full name -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Fullname</label>
+        <div class="relative">
+          <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
+            
+          </span>
+          <input 
+            type="text" name ="fullname" 
+            class="w-full pl-11 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+            
+            >
         </div>
-        <!--Copy right sections-->
+      </div>
 
-          <div class="border-t border-gray-400 w-full mt-10 pt-7
-                    flex 
-                    justify-center gap-3 text-sm">
-
-            <p class="text-white items-center ">
-                © 2026 Client Invoice Reminder. All rights reserved.
-            </p>     
-
+      <!-- Phone Number -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+        <div class="relative">
+          <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
+            
+          </span>
+          <input 
+            type="text"  name = "phonenumber"
+            class="w-full pl-11 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+            
+          >
         </div>
+      </div>
 
-       </div>
+      <!-- Email -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+        <div class="relative">
+          <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
+            
+          </span> 
+          <input 
+            type="text" name="email" 
+            class="w-full pl-11 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+        <div class="relative">
+          <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
+          
+          </span>
+          <input 
+            type="password" name="password" 
+            class="w-full pl-11 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
+          
+        </div>
+      </div>
+
+      <!-- Physical Address -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Physical Address</label>
+        <div class="relative">
+          <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
+          
+          </span>
+          <input 
+            type="text" name="physicaladdress" 
+            class="w-full pl-11 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
+          
+        </div>
+      </div>
 
 
-       
-           
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Role</label>
+        <div class="relative">
+          <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
+          
+          </span>
+          <input 
+            type="text" name="role" 
+            class="w-full pl-11 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
+          
+        </div>
+      </div>
 
-           
 
-    </body>
+      <!-- Submit Button -->
+      <button 
+        type="submit" name="submit"
+        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3.5 rounded-xl transition duration-300 text-lg">
+        submit
+      </button><br>
+
+      <p class="text-center text-sm text-gray-500 mt-4">
+        Already have an account? 
+        <a href="login.php" class="text-blue-600 hover:underline font-medium">Sign in</a>
+      </p>
+
+
+      <?php if($error):?>
+        <span style="color:red; font-size:20px;">
+          <?= $error; ?>
+        </span>
+        <?php endif;?>
+
+        <?php if($message):?>
+        <span style="color:green; font-size:20px;">
+          <?= $message; ?>
+        </span>
+        <?php endif;?>
+
+    
+    </form>
+  </div>
+
+</body>
 </html>
