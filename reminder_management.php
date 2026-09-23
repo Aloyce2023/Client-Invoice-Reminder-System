@@ -7,7 +7,11 @@ include("database.php");
 $message = "";
 $error = "";
 
-// Delete reminder
+/*
+|--------------------------------------------------------------------------
+| DELETE REMINDER
+|--------------------------------------------------------------------------
+*/
 if (isset($_POST['delete_reminder'])) {
 
     $reminder_id = (int)$_POST['reminder_id'];
@@ -15,19 +19,29 @@ if (isset($_POST['delete_reminder'])) {
     $deleteSql = "DELETE FROM reminder WHERE id = ?";
     $stmt = mysqli_prepare($conn, $deleteSql);
 
-    mysqli_stmt_bind_param($stmt, "i", $reminder_id);
+    if ($stmt) {
 
-    if (mysqli_stmt_execute($stmt)) {
-        $message = "Reminder deleted successfully.";
+        mysqli_stmt_bind_param($stmt, "i", $reminder_id);
+
+        if (mysqli_stmt_execute($stmt)) {
+            $message = "Reminder deleted successfully.";
+        } else {
+            $error = "Failed to delete reminder.";
+        }
+
+        mysqli_stmt_close($stmt);
+
     } else {
-        $error = "Failed to delete reminder.";
+        $error = "Failed to prepare delete query.";
     }
-
-    mysqli_stmt_close($stmt);
 }
 
 
-// Get reminders
+/*
+|--------------------------------------------------------------------------
+| GET REMINDERS
+|--------------------------------------------------------------------------
+*/
 $sql = "
     SELECT
         r.id AS reminder_id,
@@ -132,7 +146,7 @@ if (!$result) {
     </div>
 
 
-    <!-- Messages -->
+    <!-- Success Message -->
 
     <?php if ($message): ?>
 
@@ -145,6 +159,8 @@ if (!$result) {
 
     <?php endif; ?>
 
+
+    <!-- Error Message -->
 
     <?php if ($error): ?>
 
@@ -166,9 +182,7 @@ if (!$result) {
         <div class="px-6 py-5 bg-gray-50 border-b">
 
             <h2 class="text-2xl font-bold text-gray-800">
-
                 All Reminders
-
             </h2>
 
         </div>
@@ -383,7 +397,6 @@ if (!$result) {
 
                             <?php if ($row['sent_at'] !== null): ?>
 
-
                                 <span class="bg-green-100
                                              text-green-700
                                              px-3 py-1
@@ -393,7 +406,6 @@ if (!$result) {
 
                                 </span>
 
-
                                 <div class="text-xs text-gray-500 mt-1">
 
                                     <?= htmlspecialchars(
@@ -402,9 +414,7 @@ if (!$result) {
 
                                 </div>
 
-
                             <?php else: ?>
-
 
                                 <span class="bg-yellow-100
                                              text-yellow-700
@@ -415,7 +425,6 @@ if (!$result) {
 
                                 </span>
 
-
                             <?php endif; ?>
 
                         </td>
@@ -425,36 +434,90 @@ if (!$result) {
 
                         <td class="px-4 py-4">
 
-
-                            <form method="POST"
-                                  onsubmit="return confirm(
-                                      'Are you sure you want to delete this reminder?'
-                                  );">
+                            <div class="flex flex-col gap-2">
 
 
-                                <input
-                                    type="hidden"
-                                    name="reminder_id"
-                                    value="<?= $row['reminder_id']; ?>"
-                                >
+                                <!-- SEND REMINDER -->
+
+                                <?php if ($row['sent_at'] === null): ?>
+
+                                    <form method="POST"
+                                          action="send_email_reminders.php"
+                                          onsubmit="return confirm(
+                                              'Are you sure you want to send this reminder?'
+                                          );">
+
+                                        <input
+                                            type="hidden"
+                                            name="reminder_id"
+                                            value="<?= $row['reminder_id']; ?>"
+                                        >
+
+                                        <button
+                                            type="submit"
+                                            name="send_single_reminder"
+                                            class="bg-green-600
+                                                   hover:bg-green-700
+                                                   text-white
+                                                   px-3 py-2
+                                                   rounded-lg
+                                                   w-full">
+
+                                            Send Reminder
+
+                                        </button>
+
+                                    </form>
+
+                                <?php else: ?>
+
+                                    <button
+                                        type="button"
+                                        disabled
+                                        class="bg-gray-400
+                                               text-white
+                                               px-3 py-2
+                                               rounded-lg
+                                               cursor-not-allowed">
+
+                                        Already Sent
+
+                                    </button>
+
+                                <?php endif; ?>
 
 
-                                <button
-                                    type="submit"
-                                    name="delete_reminder"
-                                    class="bg-red-600
-                                           hover:bg-red-700
-                                           text-white
-                                           px-3 py-2
-                                           rounded-lg">
+                                <!-- DELETE REMINDER -->
 
-                                    Delete
+                                <form method="POST"
+                                      onsubmit="return confirm(
+                                          'Are you sure you want to delete this reminder?'
+                                      );">
 
-                                </button>
+                                    <input
+                                        type="hidden"
+                                        name="reminder_id"
+                                        value="<?= $row['reminder_id']; ?>"
+                                    >
+
+                                    <button
+                                        type="submit"
+                                        name="delete_reminder"
+                                        class="bg-red-600
+                                               hover:bg-red-700
+                                               text-white
+                                               px-3 py-2
+                                               rounded-lg
+                                               w-full">
+
+                                        Delete
+
+                                    </button>
+
+                                </form>
 
 
-                            </form>
-
+                            </div>
 
                         </td>
 
@@ -500,4 +563,4 @@ if (!$result) {
 </body>
 
 </html>
-
+```
