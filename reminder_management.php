@@ -7,11 +7,10 @@ include("database.php");
 $message = "";
 $error = "";
 
-/*
-|--------------------------------------------------------------------------
-| DELETE REMINDER
-|--------------------------------------------------------------------------
-*/
+
+
+// DELETE REMINDER
+
 if (isset($_POST['delete_reminder'])) {
 
     $reminder_id = (int)$_POST['reminder_id'];
@@ -37,11 +36,8 @@ if (isset($_POST['delete_reminder'])) {
 }
 
 
-/*
-|--------------------------------------------------------------------------
-| GET REMINDERS
-|--------------------------------------------------------------------------
-*/
+
+ //GET REMINDERS
 $sql = "
     SELECT
         r.id AS reminder_id,
