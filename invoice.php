@@ -36,6 +36,7 @@ $message = "";
       <div class="px-8 py-6 border-b border-gray-200 flex justify-between items-center bg-gray-50">
       <h2 class="text-2xl font-bold text-gray-800">Invoices Lists</h2>
       <button class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-xl font-medium flex items-center gap-2 transition"><a href="admin.php">Add New Invoice</a>
+      <button class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-xl font-medium flex items-center gap-2 transition"><a href="reminder_management.php">Reminders</a>
          
       </button>
       </div>
@@ -65,6 +66,7 @@ $message = "";
 
         if($result)
           {
+            $count =1;
             while($row = mysqli_fetch_assoc($result))
               {
                 $id = $row['customer_id'];
@@ -78,7 +80,7 @@ $message = "";
 
 
                  echo'<tr class="bg-gray-50 border-b border-gray-200">
-                 <td >'.$id.'</td>
+                 <td >'.$count++.'</td>
                  <td >'.$fullname.'</td>
                  <td >'.$email.'</td>
                  <td >'.$phonenumber.'</td>

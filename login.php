@@ -47,13 +47,13 @@ if(isset($_POST["login"]))
 
                  //redirect based on the role
 
-                 if($row['role']=="admin")
+                 if($row['role']==="admin")
                   {
                     header('Location: Admin.php');
                     exit();
                   }
                   else{
-                    header('Location:dashbord.php');
+                    header('Location: dashbord.php');
                     exit();
                   }
 
